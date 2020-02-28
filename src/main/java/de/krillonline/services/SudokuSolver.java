@@ -166,7 +166,9 @@ public class SudokuSolver {
 			List<Integer> vorkommendeWerte = new ArrayList<>(SudokuField.getSize());
 			for (int row = 0; row < SudokuField.getSize(); row++) {
 				Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
-				if (currentCellValue > 0) {
+				if (currentCellValue < 0 || currentCellValue > SudokuField.getSize())
+					return false;
+				else if (currentCellValue > 0) {
 					if (!vorkommendeWerte.contains(currentCellValue)) {
 						vorkommendeWerte.add(currentCellValue);
 					} else {
@@ -184,13 +186,15 @@ public class SudokuSolver {
 			List<Integer> vorkommendeWerte = new ArrayList<>(SudokuField.getSize());
 			for (int col = 0; col < SudokuField.getSize(); col++) {
 				Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
-				if (currentCellValue > 0) {
-					if (!vorkommendeWerte.contains(currentCellValue)) {
-						vorkommendeWerte.add(currentCellValue);
-					} else {
-						return false;
+				if (currentCellValue < 0 || currentCellValue > SudokuField.getSize())
+					return false;
+				else if (currentCellValue > 0) {
+						if (!vorkommendeWerte.contains(currentCellValue)) {
+							vorkommendeWerte.add(currentCellValue);
+						} else {
+							return false;
+						}
 					}
-				}
 			}
 		}
 		return true;
@@ -210,7 +214,9 @@ public class SudokuSolver {
 				for (int row = vSegment*elPerSegment; row < (vSegment+1)*elPerSegment; row++) {
 					for (int col = hSegment*elPerSegment; col < (hSegment+1)*elPerSegment; col++) {
 						Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
-						if (currentCellValue > 0) {
+						if (currentCellValue < 0 || currentCellValue > SudokuField.getSize())
+							return false;
+						else if (currentCellValue > 0) {
 							if (!vorkommendeWerte.contains(currentCellValue)) {
 								vorkommendeWerte.add(currentCellValue);
 							} else {
