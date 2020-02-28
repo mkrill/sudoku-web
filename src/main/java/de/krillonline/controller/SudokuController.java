@@ -16,13 +16,16 @@ public class SudokuController {
 	
 	@GetMapping("/")
 	public String getInitForm(Model model) {
-		Integer size=0;
-		model.addAttribute("size", size);
+		model.addAttribute("size", new Integer(0));
 		return "index";
 	}
 	
 	@PostMapping("/createfield")
-	public String createField(Model model, @RequestParam Integer size) {		
+	public String createField(Model model, @RequestParam Integer size) {
+		
+		int rootOfSize = (int) Math.sqrt(size); 
+		if ((rootOfSize * rootOfSize) != size) 
+			throw new RuntimeException("Ungültige Größe, keine Quadratzahl!");
 		SudokuField.setSize(size);
 		SudokuField field = new SudokuField(size);
 		model.addAttribute("field", field);
@@ -30,8 +33,11 @@ public class SudokuController {
 	}
 	
 	@PostMapping("/initfield")
-	public String initField(Model model, @ModelAttribute(name="field") SudokuField field) {		
+	public String initField(Model model, 
+			@ModelAttribute(name="field") SudokuField field) {		
 
+		if (! SudokuSolver.feldIstGueltig(field))
+			throw new RuntimeException("Ungültiges Feld!");
 		for (int row = 0; row < field.getCells().length; row++) {
 			for (int col = 0; col < field.getCells()[row].length; col++) {
 				SudokuCell cell = field.getCells()[row][col];
@@ -45,7 +51,7 @@ public class SudokuController {
 		
 		loesung.setCells(SudokuSolver.loeseFeld(loesung.getCells()));
 		
-		model.addAttribute("field", loesung);
+		model.addAttribute("solution", loesung);
 		model.addAttribute("start", field);
 				
 		return "solution";		

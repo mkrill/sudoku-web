@@ -31,16 +31,16 @@
 		<h2>Sudoku Solution</h2>
 		<table class="table table-hover">
 			<tbody>
-				<tr th:each="row, rowstat : ${field.cells}">
-					<td th:each="cell, colstat : ${field.cells[__${rowstat.index}__]}">
+				<tr th:each="row, rowstat : ${solution.cells}">
+					<td th:each="cell, colstat : ${solution.cells[__${rowstat.index}__]}">
 						<span
 							th:if="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-							th:text="${field.cells[__${rowstat.index}__][__${colstat.index}__].value}">
+							th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
 							Wert </span>
 						<span
 							th:unless="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-							style="color: blue; font-weight: bold;"
-							th:text="${field.cells[__${rowstat.index}__][__${colstat.index}__].value}">
+							style="color: blue; font-weight: bold; font-size: x-large;"
+							th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
 							Wert </span>
 					</td>
 				</tr>

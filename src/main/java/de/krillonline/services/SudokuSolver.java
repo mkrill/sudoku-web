@@ -103,7 +103,7 @@ public class SudokuSolver {
 	private static void zeigeFeld(SudokuCell[][] arbeitsFeld) {
 
 		drawLineOnConsole();
-		
+
 		int quadrantSize = (int) Math.sqrt(arbeitsFeld.length);
 
 		for (int row=0; row < arbeitsFeld.length; row++) {
@@ -152,6 +152,77 @@ public class SudokuSolver {
 		}
 		return kopie;
 
+	}
+
+	public static boolean feldIstGueltig(SudokuField field) {
+		return spaltenSindGueltig(field)
+				&& zeilenSindGueltig(field)
+				&& quadrantenSindGueltig(field);
+	}
+
+	private static boolean spaltenSindGueltig(SudokuField field) {
+
+		for (int col = 0; col < SudokuField.getSize(); col++) {
+			List<Integer> vorkommendeWerte = new ArrayList<>(SudokuField.getSize());
+			for (int row = 0; row < SudokuField.getSize(); row++) {
+				Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
+				if (currentCellValue > 0) {
+					if (!vorkommendeWerte.contains(currentCellValue)) {
+						vorkommendeWerte.add(currentCellValue);
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	private static boolean zeilenSindGueltig(SudokuField field) {
+
+		for (int row = 0; row < SudokuField.getSize(); row++) {
+			List<Integer> vorkommendeWerte = new ArrayList<>(SudokuField.getSize());
+			for (int col = 0; col < SudokuField.getSize(); col++) {
+				Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
+				if (currentCellValue > 0) {
+					if (!vorkommendeWerte.contains(currentCellValue)) {
+						vorkommendeWerte.add(currentCellValue);
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	private static boolean quadrantenSindGueltig(SudokuField field) {
+
+		int noOfSegments = (int) Math.sqrt(SudokuField.getSize());
+		int elPerSegment = noOfSegments;
+
+		for (int vSegment = 0; vSegment < noOfSegments; vSegment++) {
+
+			for (int hSegment = 0; hSegment < noOfSegments; hSegment++)  {
+
+				List<Integer> vorkommendeWerte = new ArrayList<>(SudokuField.getSize());
+
+				for (int row = vSegment*elPerSegment; row < (vSegment+1)*elPerSegment; row++) {
+					for (int col = hSegment*elPerSegment; col < (hSegment+1)*elPerSegment; col++) {
+						Integer currentCellValue = (Integer) field.getCells()[row][col].getValue();
+						if (currentCellValue > 0) {
+							if (!vorkommendeWerte.contains(currentCellValue)) {
+								vorkommendeWerte.add(currentCellValue);
+							} else {
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 }
