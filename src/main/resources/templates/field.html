@@ -30,11 +30,16 @@
 	<main>
 		<div>
 			<h2>Sudoku Field</h2>
-			<form class="form-signin" method="post" th:action="@{/initfield}" th:object="${field}">
+			<p th:if="${message}" th:text="${message}">Fehlermeldung</p>
+			<form class="form-signin" method="post" th:action="@{/initfield}"
+				th:object="${field}">
 				<div class="row" th:each="row, rowstat : *{cells}">
-					<div class="col" th:each="cell, colstat : *{cells[__${rowstat.index}__]}">
-						<input type="text" class="form-control" th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].value}">
-						<input type="hidden" class="form-control" th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].startValue}">
+					<div class="col"
+						th:each="cell, colstat : *{cells[__${rowstat.index}__]}">
+						<input type="text" class="form-control"
+							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].value}">
+						<input type="hidden" class="form-control"
+							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].startValue}">
 					</div>
 				</div>
 				<button class="btn btn-primary btn-block" type="submit">Submit</button>

@@ -24,8 +24,11 @@ public class SudokuController {
 	public String createField(Model model, @RequestParam Integer size) {
 		
 		int rootOfSize = (int) Math.sqrt(size); 
-		if ((rootOfSize * rootOfSize) != size) 
-			throw new RuntimeException("Ungültige Größe, keine Quadratzahl!");
+		if ((rootOfSize * rootOfSize) != size) {
+			model.addAttribute("size", size);
+			model.addAttribute("message", "Die Größe muss quadratisch sein! Bitte korrigieren!");
+			return "index";
+		}
 		SudokuField.setSize(size);
 		SudokuField field = new SudokuField(size);
 		model.addAttribute("field", field);
@@ -36,8 +39,11 @@ public class SudokuController {
 	public String initField(Model model, 
 			@ModelAttribute(name="field") SudokuField field) {		
 
-		if (! SudokuSolver.feldIstGueltig(field))
-			throw new RuntimeException("Ungültiges Feld!");
+		if (! SudokuSolver.feldIstGueltig(field)) {
+			model.addAttribute("field", field);
+			model.addAttribute("message", "Das eingebene Startfeld ist ungültig! Bitte korrigieren!");
+			return "field";
+		}
 		for (int row = 0; row < field.getCells().length; row++) {
 			for (int col = 0; col < field.getCells()[row].length; col++) {
 				SudokuCell cell = field.getCells()[row][col];

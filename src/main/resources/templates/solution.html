@@ -29,18 +29,20 @@
 
 	<main>
 		<h2>Sudoku Solution</h2>
-		<table class="table table-hover">
+		<table class="table table-hover"
+			style="text-align: center; vertical-align: center;">
 			<tbody>
 				<tr th:each="row, rowstat : ${solution.cells}">
-					<td th:each="cell, colstat : ${solution.cells[__${rowstat.index}__]}">
+					<td
+						th:each="cell, colstat : ${solution.cells[__${rowstat.index}__]}">
 						<span
-							th:if="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-							th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
-							Wert </span>
-						<span
-							th:unless="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-							style="color: blue; font-weight: bold; font-size: x-large;"
-							th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
+						th:if="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
+						style="color: black; font-weight: bold; font-size: x-large;"
+						th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
+							Wert </span> <span
+						th:unless="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
+						style="color: blue; font-weight: bold; font-size: x-large;"
+						th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
 							Wert </span>
 					</td>
 				</tr>
