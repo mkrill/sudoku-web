@@ -24,6 +24,23 @@
 	margin-top: 10px;
 }
 
-.segment-end {
-	border-right: 1px solid black;
+.table td {
+	border-top: none;
+	text-align: center;
 }
+td.bordertop {
+	border-top: 2px solid black;
+}
+
+td.borderbottom {
+	border-bottom: 2px solid black;
+}
+
+td.borderleft {
+	border-left: 2px solid black;
+}
+
+td.borderright {
+	border-right: 2px solid black;
+}
+

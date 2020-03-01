@@ -21,20 +21,41 @@ public class SudokuField {
 		super();
 		SudokuField.size = size;
 		this.cells = new SudokuCell[size][size];
-		for (int row = 0; row < cells.length; row++) 
-			for (int col = 0; col < cells[row].length; col++) {
-				cells[row][col] = new SudokuCell(0, false);
-		}
+		initializeFieldAndBorderSettings();
 	}
-	
+
 	public SudokuField() {
 		if (SudokuField.size == 0 )
 			throw new RuntimeException("Field size not set before 1st instanciation of object!");
 		this.cells = new SudokuCell[SudokuField.size][SudokuField.size];
-		for (int row = 0; row < cells.length; row++) 
+		initializeFieldAndBorderSettings();
+	}
+
+	private void initializeFieldAndBorderSettings() {
+	
+		int quadrantSize = (int) Math.sqrt(this.getCells().length);
+		
+		for (int row = 0; row < this.cells.length; row++) 
 			for (int col = 0; col < cells[row].length; col++) {
-				cells[row][col] = new SudokuCell(0, false);
-		}
+
+				
+				this.cells[row][col] = new SudokuCell(0, false);
+
+				SudokuCell currentCell = this.cells[row][col];
+
+
+				if ((row % quadrantSize) == 0) {
+					currentCell.setBorderClasses(currentCell.getBorderClasses() + " bordertop");
+				} else if (row == (this.cells.length-1)) {
+					currentCell.setBorderClasses(currentCell.getBorderClasses() + " borderbottom");
+				}
+
+				if ((col %  quadrantSize) == 0) {
+					currentCell.setBorderClasses(currentCell.getBorderClasses() + " borderleft");
+				} else if (col == (this.cells[row].length-1)) {
+					currentCell.setBorderClasses(currentCell.getBorderClasses() + " borderright");
+				}
+			}
 	}
 
 	public static void setSize(int size) {
@@ -44,7 +65,7 @@ public class SudokuField {
 	public static int getSize() {
 		return size;
 	}
-	
+
 	public boolean fieldIsValid() {
 		return columnsAreValid()
 				&& rowsAreValid()
@@ -116,7 +137,7 @@ public class SudokuField {
 		return true;
 
 	}
-	
+
 	public SudokuCell[][] findSolutions(SudokuCell[][] arbeitsFeld) {
 
 		recursioncounter++;
@@ -220,7 +241,7 @@ public class SudokuField {
 		return null;
 	}
 
-	
+
 	public SudokuCell[][] copyCells (SudokuCell[][] quelle) {
 
 		SudokuCell[][] kopie = new SudokuCell[SudokuField.getSize()][SudokuField.getSize()];
@@ -228,6 +249,7 @@ public class SudokuField {
 		for (int i=0; i < quelle.length; i++) {
 			for (int j=0; j < quelle[i].length; j++) {
 				kopie[i][j] = new SudokuCell(quelle[i][j].getValue(), quelle[i][j].isStartValue());
+				kopie[i][j].setBorderClasses(quelle[i][j].getBorderClasses());
 			}
 		}
 		return kopie;

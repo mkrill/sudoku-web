@@ -37,7 +37,8 @@
 				<div class="row" th:each="row, rowstat : *{cells}">
 					<div class="col"
 						th:each="cell, colstat : *{cells[__${rowstat.index}__]}">
-						<input type="text" class="form-control inputcell"
+						<input type="text" 
+						class="form-control inputcell"
 							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].value}">
 						<input type="hidden" class="form-control"
 							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].startValue}">
