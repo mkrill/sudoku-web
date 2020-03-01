@@ -2,7 +2,9 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Sudoku Solver</title>
+<meta charset="utf-8">
+<title>Sudoku Solver - Feldgrößeneingabe</title>
+
 <link
 	href="https://fonts.googleapis.com/css?family=Allerta+Stencil%7CJosefin+Sans%7CReem+Kufi&display=swap"
 	rel="stylesheet">
@@ -30,13 +32,13 @@
 <body>
 
 	<main>
-		<h2>Sudoku Solver</h2>
+		<h2>Sudoku Solver - Feldgrößeneingabe</h2>
 		<p th:if="${message}" th:text="${message}">Fehlermeldung</p>
 		<div>
-			<form class="form width10percent" method="post" th:action="@{/createfield}">
-				<label for="size">Feldgroesse:</label> 
+			<form class="form width15percent" method="post" th:action="@{/createfield}">
+				<label for="size">Feldgröße:</label> 
 				<input type="number" class="form-control inputcell" th:name="size" required>
-				<button class="btn btn-primary" type="submit">Submit</button>
+				<button class="btn btn-primary buttonmargin" type="submit">Submit</button>
 			</form>
 		</div>
 	</main>

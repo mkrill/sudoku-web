@@ -2,7 +2,8 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Sudoku Solver</title>
+<meta charset="utf-8">
+<title>Sudoku Solver - Feldvorbelegung</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Allerta+Stencil%7CJosefin+Sans%7CReem+Kufi&display=swap"
 	rel="stylesheet">
@@ -30,21 +31,25 @@
 
 	<main>
 		<div>
-			<h2>Sudoku Field</h2>
+			<h2>Sudoku Solver - Feldvorbelegung</h2>
 			<p th:if="${message}" th:text="${message}">Fehlermeldung</p>
-			<form class="form-signin field" method="post" th:action="@{/initfield}"
-				th:object="${field}">
-				<div class="row" th:each="row, rowstat : *{cells}">
-					<div class="col"
-						th:each="cell, colstat : *{cells[__${rowstat.index}__]}">
-						<input type="text" 
-						class="form-control inputcell"
-							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].value}">
-						<input type="hidden" class="form-control"
-							th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].startValue}">
-					</div>
-				</div>
-				<button class="btn btn-primary btn-block" type="submit">Submit</button>
+			<form class="form-signin field" method="post"
+				th:action="@{/initfield}" th:object="${field}">
+				<table>
+					<tbody>
+						<tr class="row" th:each="row, rowstat : *{cells}">
+							<td class="col "
+								th:each="cell, colstat : *{cells[__${rowstat.index}__]}"
+								th:classappend="*{cells[__${rowstat.index}__][__${colstat.index}__].BorderClasses}">
+								<input type="text" class="form-control inputcell"
+									th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].value}">
+								<input type="hidden" class="form-control"
+									th:field="*{cells[__${rowstat.index}__][__${colstat.index}__].startValue}">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-primary buttonmargin" type="submit">Submit</button>
 			</form>
 		</div>
 	</main>

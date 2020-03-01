@@ -2,7 +2,8 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Sudoku Solver</title>
+<meta charset="utf-8">
+<title>Sudoku Solver - Lösungen</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Allerta+Stencil%7CJosefin+Sans%7CReem+Kufi&display=swap"
 	rel="stylesheet">
@@ -29,15 +30,15 @@
 <body>
 
 	<main>
-		<h2>Sudoku Solution</h2>
+		<h2>Sudoku Solver - Lösungen</h2>
 		<p th:if="${maxloesungenerreicht}"
-			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Loesungen ermittelt. Danach wurde die Loesungssuche eingestellt.'">Anzahl
-			Loesungen</p>
+			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Lösungen ermittelt. Danach wurde die Lösungssuche eingestellt.'">Anzahl
+			Lösungen</p>
 		<p th:unless="${maxloesungenerreicht}"
-			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Loesungen ermittelt.'">Anzahl
-			Loesungen</p>
+			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Lösungen ermittelt.'">Anzahl
+			Lösungen</p>
 		<div th:each="solution, solstat : ${field.solutions}" class="field">
-			<h3 th:text="${solstat.count} + '. Loesung:'">x. L�sung</h3>
+			<h3 th:text="${solstat.count} + '. Loesung:'">x. Lösung</h3>
 			<table class="table">
 				<tbody>
 					<tr th:each="row, rowstat : ${solution}">

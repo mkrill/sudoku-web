@@ -15,8 +15,8 @@
 	width: 80%;
 }
 
-.width10percent {
-	width: 10%;
+.width15percent {
+	width: 15%;
 }
 
 .inputcell {
@@ -27,6 +27,10 @@
 .table td {
 	border-top: none;
 	text-align: center;
+}
+
+.buttonmargin {
+	margin-top: 20px;
 }
 td.bordertop {
 	border-top: 2px solid black;
