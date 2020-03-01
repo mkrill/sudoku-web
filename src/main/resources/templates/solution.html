@@ -23,31 +23,40 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 
+<link rel="stylesheet" th:href="@{style.css}">
 </head>
 
 <body>
 
 	<main>
 		<h2>Sudoku Solution</h2>
-		<table class="table table-hover"
-			style="text-align: center; vertical-align: center;">
-			<tbody>
-				<tr th:each="row, rowstat : ${solution.cells}">
-					<td
-						th:each="cell, colstat : ${solution.cells[__${rowstat.index}__]}">
-						<span
-						th:if="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-						style="color: black; font-weight: bold; font-size: x-large;"
-						th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
-							Wert </span> <span
-						th:unless="${start.cells[__${rowstat.index}__][__${colstat.index}__].startValue}"
-						style="color: blue; font-weight: bold; font-size: x-large;"
-						th:text="${solution.cells[__${rowstat.index}__][__${colstat.index}__].value}">
-							Wert </span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<p th:if="${maxloesungenerreicht}"
+			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Loesungen ermittelt. Danach wurde die Loesungssuche eingestellt.'">Anzahl
+			Loesungen</p>
+		<p th:unless="${maxloesungenerreicht}"
+			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Loesungen ermittelt.'">Anzahl
+			Loesungen</p>
+		<div th:each="solution, solstat : ${field.solutions}" class="field">
+		<h3 th:text="${solstat.count} + '. Loesung:'">x. Lösung</h3>
+			<table class="table table-hover"
+				style="text-align: center; vertical-align: center;">
+				<tbody>
+					<tr th:each="row, rowstat : ${solution}">
+						<td th:each="cell, colstat : ${solution[__${rowstat.index}__]}">
+							<span
+							th:if="${solution[__${rowstat.index}__][__${colstat.index}__].startValue}"
+							class="start-value" 
+							th:text="${solution[__${rowstat.index}__][__${colstat.index}__].value}">
+								Wert </span> <span
+							th:unless="${solution[__${rowstat.index}__][__${colstat.index}__].startValue}"
+							class="no-start-value"
+							th:text="${solution[__${rowstat.index}__][__${colstat.index}__].value}">
+								Wert </span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</main>
 
 </body>

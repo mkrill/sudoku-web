@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.krillonline.entities.SudokuCell;
-import de.krillonline.entities.SudokuField;
-import de.krillonline.services.SudokuSolver;
+import de.krillonline.model.SudokuCell;
+import de.krillonline.model.SudokuField;
 
 @Controller
 public class SudokuController {
@@ -39,11 +38,23 @@ public class SudokuController {
 	public String initField(Model model, 
 			@ModelAttribute(name="field") SudokuField field) {		
 
-		if (! SudokuSolver.feldIstGueltig(field)) {
+		if (! field.fieldIsValid()) {
 			model.addAttribute("field", field);
 			model.addAttribute("message", "Das eingebene Startfeld ist ungültig! Bitte korrigieren!");
 			return "field";
 		}
+
+		markInitialFields(field);
+				
+		field.findSolutions(field.getCells());
+		
+		model.addAttribute("field", field);
+		model.addAttribute("maxloesungenerreicht", field.getSolutions().size() == SudokuField.MAXSOLUTIONS);
+				
+		return "solution";		
+	}
+
+	private void markInitialFields(SudokuField field) {
 		for (int row = 0; row < field.getCells().length; row++) {
 			for (int col = 0; col < field.getCells()[row].length; col++) {
 				SudokuCell cell = field.getCells()[row][col];
@@ -52,15 +63,6 @@ public class SudokuController {
 				}
 			}
 		}
-		
-		SudokuField loesung = SudokuSolver.kopiereFeld(field);
-		
-		loesung.setCells(SudokuSolver.loeseFeld(loesung.getCells()));
-		
-		model.addAttribute("solution", loesung);
-		model.addAttribute("start", field);
-				
-		return "solution";		
 	}
 	
 }

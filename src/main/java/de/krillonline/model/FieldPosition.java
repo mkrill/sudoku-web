@@ -1,11 +1,11 @@
-package de.krillonline.services;
+package de.krillonline.model;
 
-public class FeldPosition {
+public class FieldPosition {
 	
 	private int row;
 	private int column;
 
-	public FeldPosition(int row, int column) {
+	public FieldPosition(int row, int column) {
 		super();
 		this.row = row;
 		this.column = column;

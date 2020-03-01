@@ -1,4 +1,4 @@
-package de.krillonline.entities;
+package de.krillonline.model;
 
 import lombok.Getter;
 import lombok.Setter;
