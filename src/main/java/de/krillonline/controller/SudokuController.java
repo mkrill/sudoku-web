@@ -19,8 +19,8 @@ public class SudokuController {
 		return "index";
 	}
 	
-	@PostMapping("/createfield")
-	public String createField(Model model, @RequestParam Integer size) {
+	@PostMapping("/fieldinputform")
+	public String createFieldInputForm(Model model, @RequestParam Integer size) {
 		
 		int rootOfSize = (int) Math.sqrt(size); 
 		if ((rootOfSize * rootOfSize) != size) {
@@ -34,8 +34,8 @@ public class SudokuController {
 		return "field";		
 	}
 	
-	@PostMapping("/initfield")
-	public String initField(Model model, 
+	@PostMapping("/solutions")
+	public String showSolutions(Model model, 
 			@ModelAttribute(name="field") SudokuField field) {		
 
 		if (! field.fieldIsValid()) {

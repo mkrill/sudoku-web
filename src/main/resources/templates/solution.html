@@ -38,7 +38,7 @@
 			th:text="'Es wurden ' + ${#lists.size(field.solutions)} +' Lösungen ermittelt.'">Anzahl
 			Lösungen</p>
 		<div th:each="solution, solstat : ${field.solutions}" class="field">
-			<h3 th:text="${solstat.count} + '. Loesung:'">x. Lösung</h3>
+			<h3 th:text="${solstat.count} + '. Lösung:'">x. Lösung</h3>
 			<table class="table">
 				<tbody>
 					<tr th:each="row, rowstat : ${solution}">

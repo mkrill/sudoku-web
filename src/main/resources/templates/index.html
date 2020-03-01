@@ -35,7 +35,7 @@
 		<h2>Sudoku Solver - Feldgrößeneingabe</h2>
 		<p th:if="${message}" th:text="${message}">Fehlermeldung</p>
 		<div>
-			<form class="form width15percent" method="post" th:action="@{/createfield}">
+			<form class="form width15percent" method="post" th:action="@{/fieldinputform}">
 				<label for="size">Feldgröße:</label> 
 				<input type="number" class="form-control inputcell" th:name="size" required>
 				<button class="btn btn-primary buttonmargin" type="submit">Submit</button>
